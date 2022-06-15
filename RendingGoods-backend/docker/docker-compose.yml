@@ -1,0 +1,24 @@
+version: '2.1'
+
+services:
+  goods-app:
+    image: goods-app
+    build:
+      context: .
+    container_name: goods-app
+    ports:
+      - 8080:8080
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=root
+  db:
+    image: postgres:13
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+    restart: always
